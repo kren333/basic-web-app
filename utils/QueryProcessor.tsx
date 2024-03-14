@@ -35,5 +35,21 @@ export default function QueryProcessor(query: string): string {
       Math.max(parseInt(regMatchMax[1]), parseInt(regMatchMax[2]), parseInt(regMatchMax[3])).toString()
     )
   }
+
+  var isSquare = function (n: number) { return n > 0 && Math.sqrt(n) % 1 === 0; }
+
+  var isCube = function (n: number) { return n > 0 && Math.cbrt(n) % 1 === 0; }
+
+  const cubsqReg = /which of the following numbers is both a square and a cube: (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)\?/;
+  const cubsqMatch = query.toLowerCase().match(cubsqReg);
+  if (cubsqMatch) {
+    for (let i = 0; i < cubsqMatch.length; i++) {
+      if (isSquare(parseInt(cubsqMatch[i])) && isCube(parseInt(cubsqMatch[i]))) {
+        return (cubsqMatch[i]);
+      }
+    }
+    return ("none");
+  }
+
   return "";
 }
