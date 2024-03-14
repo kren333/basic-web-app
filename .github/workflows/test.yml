@@ -1,0 +1,27 @@
+name: basic-web-app
+
+on:
+
+push:
+
+branches:
+
+- main
+
+jobs:
+
+__BLANK 2__:
+
+    runs-on: ubuntu-latest
+
+    name: __BLANK 3__
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - uses: bahmutov/npm-install@v1
+
+    - run: npm run lint (Run ESLint)
+
+    - run: npm run test (Run Jest)
