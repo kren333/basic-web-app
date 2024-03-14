@@ -46,6 +46,15 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  const powStr = /what is (\d+) to the power of (\d+)\?/;
+  const powMatch = query.toLowerCase().match(powStr);
+
+  if (powMatch) {
+    return (
+      (parseInt(powMatch[1]) ** parseInt(powMatch[2])).toString()
+    );
+  }
+
   const regStrMax = /which of the following numbers is the largest: (\d+), (\d+), (\d+)\?/;
   const regMatchMax = query.toLowerCase().match(regStrMax);
   if(regMatchMax) {
@@ -64,6 +73,24 @@ export default function QueryProcessor(query: string): string {
     for (let i = 0; i < cubsqMatch.length; i++) {
       if (isSquare(parseInt(cubsqMatch[i])) && isCube(parseInt(cubsqMatch[i]))) {
         return (cubsqMatch[i]);
+      }
+    }
+    return ("none");
+  }
+
+  const isPrime = (num : number) => {
+    for(let i = 2, s = Math.sqrt(num); i <= s; i++) {
+        if(num % i === 0) return false;
+    }
+    return num > 1;
+  }
+
+  const primeReg = /which of the following numbers are primes: (\d+), (\d+), (\d+), (\d+), (\d+)\?/;
+  const primeMatch = query.toLowerCase().match(primeReg);
+  if (primeMatch) {
+    for (let i = 0; i < primeMatch.length; i++) {
+      if (isPrime(parseInt(primeMatch[i]))) {
+        return (primeMatch[i]);
       }
     }
     return ("none");
