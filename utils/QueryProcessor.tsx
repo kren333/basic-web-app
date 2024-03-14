@@ -19,5 +19,21 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  const regStr = /what is (\d+) plus (\d+)\?/;
+  const regMatch = query.toLowerCase().match(regStr);
+
+  if (regMatch) {
+    return (
+      (parseInt(regMatch[1]) + parseInt(regMatch[2])).toString()
+    );
+  }
+
+  const regStrMax = /which of the following numbers is the largest: (\d+), (\d+), (\d+)\?/;
+  const regMatchMax = query.toLowerCase().match(regStrMax);
+  if(regMatchMax) {
+    return(
+      Math.max(parseInt(regMatchMax[1]), parseInt(regMatchMax[2]), parseInt(regMatchMax[3])).toString()
+    )
+  }
   return "";
 }
