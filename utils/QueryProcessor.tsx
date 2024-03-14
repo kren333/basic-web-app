@@ -28,6 +28,15 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  const minusStr = /what is (\d+) minus (\d+)\?/;
+  const minusMatch = query.toLowerCase().match(minusStr);
+
+  if (minusMatch) {
+    return (
+      (parseInt(minusMatch[1]) - parseInt(minusMatch[2])).toString()
+    );
+  }
+
   const multStr = /what is (\d+) multiplied by (\d+)\?/;
   const multMatch = query.toLowerCase().match(multStr);
 
