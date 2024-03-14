@@ -28,6 +28,15 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  const multStr = /what is (\d+) multiplied by (\d+)\?/;
+  const multMatch = query.toLowerCase().match(multStr);
+
+  if (multMatch) {
+    return (
+      (parseInt(multMatch[1]) * parseInt(multMatch[2])).toString()
+    );
+  }
+
   const regStrMax = /which of the following numbers is the largest: (\d+), (\d+), (\d+)\?/;
   const regMatchMax = query.toLowerCase().match(regStrMax);
   if(regMatchMax) {
